@@ -16,10 +16,10 @@ const SignIn: React.FC = () => {
         setData((prev) => ({ ...prev, [name]: value }));
     }
     const handleSignIn = () => {
-        if (data?.email == '') {
+        if (data?.email === ''){
             setValidation((prev) => ({ ...prev, ["email"]: 'Email is required' }));
         }
-        if (data?.password == '') {
+        if (data?.password === '') {
             setValidation((prev) => ({ ...prev, ["password"]: 'Password is required' }))
         }
         if (data?.email != '' && data?.password != '') {

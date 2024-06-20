@@ -37,8 +37,9 @@ const Chat: React.FC = () => {
     }, [followersData]);
     return (
         <Grid container justifyContent={'center'}>
-            <Grid item sx={{ display: 'flex', flexDirection: 'column', border: '1px solid #b9e1aa', borderRadius: '10px', p: 2, m: 2, justifyContent: 'center', gap: 1, maxWidth: '35%' }}>
-                <Grid item xs={12} sx={{ display: 'flex', gap: 2 }}>
+            <Grid item sx={{ display: 'flex', flexDirection: 'column', border: '1px solid #b9e1aa', borderRadius: '10px', p: 2, m: 2, justifyContent: 'center', gap: 1, maxWidth: '35%', height: '80vh' }}>
+                {/* chat header */}
+                <Grid item xs={12} sx={{ display: 'flex', gap: 2, position: 'sticky', top: 0,  zIndex: 1, alignItems:'start' }}>
                     <Box sx={{ width: 'fix-content' }}>
                         <Button variant='contained' color='success' sx={{ borderRadius: '8px', py: 1.8, }} onClick={() => navigate(`/profile?id=${params.get('id')}`)}>
                             <ArrowBackIcon sx={{ fontSize: '1rem' }} />
@@ -67,16 +68,16 @@ const Chat: React.FC = () => {
                             </IconButton>
                         </Box>
                     </Grid>
-
                 </Grid>
                 <Grid item xs={12}>
                     <Divider />
                 </Grid>
-                <Grid item xs={12} sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                <Grid item xs={12} sx={{ display: 'flex', flexDirection: 'column', gap: 2, overflowY: 'auto', flexGrow: 1, minHeight: '60vh' }}>
                     {
                         chatData.map((elem: ChatType, index: number) => {
                             return (
                                 <Grid key={index} item xs={12} sx={{
+                                    // minHeight: '10vh',
                                     display: 'flex',
                                     justifyContent: elem.sender ? 'flex-end' : 'flex-start',
                                     gap: 0.7,
@@ -120,7 +121,9 @@ const Chat: React.FC = () => {
                         })
                     }
                 </Grid>
-                <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between', gap: 1, }}>
+
+                {/* chat footer  */}
+                <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between', gap: 1, position: 'sticky', bottom: 0, zIndex: 1, paddingBottom: 2, alignItems:'end' }}>
                     <TextField fullWidth value={message} placeholder={'say something'} sx={{ borderRadius: '20px' }} onChange={(e) => setMessage(e.target.value)} />
                     <IconButton onClick={handleSendMessage} sx={{
                         borderRadius: '50%', backgroundColor: '#4DD969', width: 'fix-content', '&:hover': {

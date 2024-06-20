@@ -21,8 +21,15 @@ const chatData = [{
 {
     sender: false,
     message: 'Yeah it’s great idea, you know - everyone needs water, I dont know about stones xD'
-}
-
+},
+{
+    sender: false,
+    message: 'What is your openion?'
+},
+{
+    sender: true,
+    message: 'I also think so!'
+},
 
 ]
 export default chatData;

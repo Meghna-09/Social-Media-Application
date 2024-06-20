@@ -199,11 +199,10 @@ const Profile: React.FC = () => {
                 <Grid item xs={12}>
                     <Divider />
                 </Grid>
-                <Grid item xs={12} sm={12} sx={{ display: 'flex', gap: 2, overflowX: 'auto', overflowY: 'hidden', maxWidth: '100%' }}>
+                {/* display profile image by sliding feature */}
+                <Grid item xs={12} sm={12} sx={{ display: 'flex', gap: 2, overflowX: 'auto', overflowY: 'hidden', minHeight:'192px', p:1 }}>
                     {imgData.map((elem: string, index: number) => (
-                        <Grid item key={index}>
-                            <img src={elem} alt='img' style={{ width: '166px', height: '166px' }} />
-                        </Grid>
+                            <img src={elem} key={index} alt='img' style={{ width: '166px', height: '166px' }} />
                     ))}
                 </Grid>
             </Grid>

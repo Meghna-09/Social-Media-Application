@@ -122,6 +122,11 @@ const Menus: React.FC = () => {
                                         display: "flex",
                                         gap: 2,
                                         justifyContent: "space-between",
+                                        cursor: 'pointer'
+                                    }}
+                                    onClick={() => {
+                                        if (elem.path)
+                                            navigate(elem.path)
                                     }}
                                 >
                                     <Grid item>
@@ -185,7 +190,8 @@ const Menus: React.FC = () => {
                     <Button
                         variant="contained"
                         fullWidth
-                        sx={{ p: 1, backgroundColor: "#C9FFD5", color: "#28CD56" }}
+                        sx={{ p: 1, backgroundColor: "#C9FFD5", color: "#28CD56", '&:hover': { backgroundColor: "#A2CAAB" } }}
+                        onClick={() => navigate('/sign-in')}
                     >
                         Log Out
                     </Button>
@@ -218,6 +224,7 @@ const menuData = [
         title: "Notification",
         count: "35",
         desc: "See your recent activity",
+        path: '/notifications'
     },
     {
         title: "Friends",

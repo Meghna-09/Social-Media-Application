@@ -22,7 +22,7 @@ const SignIn: React.FC = () => {
         if (data?.password === '') {
             setValidation((prev) => ({ ...prev, ["password"]: 'Password is required' }))
         }
-        if (data?.email != '' && data?.password != '') {
+        if (data?.email !== '' && data?.password !== '') {
             navigate('/menus')
         }
     }

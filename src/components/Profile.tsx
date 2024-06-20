@@ -1,4 +1,4 @@
-import { Box, Grid, Typography, Button, Divider, IconButton, Avatar } from '@mui/material'
+import { Box, Grid, Typography, Button, Divider, IconButton, Avatar } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import React, { useEffect, useState } from 'react';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -10,6 +10,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { followersType } from '../utils/types/FollowersType';
 import { setFollowersData } from '../redux/slices/dataSlice';
+
 interface socialDataType {
     count: string | undefined;
     name: string;
@@ -23,8 +24,9 @@ const Profile: React.FC = () => {
     const [socialData, setSocialData] = useState<socialDataType[] | null>(null)
     const { followersData } = reduxData;
     const dispatch = useDispatch();
+
     const getProfileData = () => {
-        let id = params.get('id')
+        let id = params.get('id');
         if (id) {
             let filteredData: followersType | null = followersData.find((elem: followersType) => elem.id === id);
             let requiredData = [
@@ -45,31 +47,32 @@ const Profile: React.FC = () => {
             setProfileData(filteredData);
         }
     }
+
     const handleLike = () => {
         let id = params.get('id');
         let index = followersData.findIndex((elem: followersType) => elem.id === id);
         let temp = JSON.parse(JSON.stringify(followersData));
-        temp[index]['like'] = !temp[index]['like']
+        temp[index]['like'] = !temp[index]['like'];
         dispatch(setFollowersData(temp));
     }
+
     const handleFollow = () => {
         let id = params.get('id');
-        console.log(id)
         let index = followersData.findIndex((elem: followersType) => elem.id === id);
-        console.log(index)
         let temp = JSON.parse(JSON.stringify(followersData));
-        temp[index]['follow'] = !temp[index]['follow']
-        console.log(temp[index])
+        temp[index]['follow'] = !temp[index]['follow'];
         dispatch(setFollowersData(temp));
     }
+
     useEffect(() => {
-        getProfileData()
+        getProfileData();
     }, [followersData]);
+
     return (
         <Grid container justifyContent={'center'}>
-            <Grid item sx={{ display: 'flex', flexDirection: 'column', border: '1px solid #b9e1aa', borderRadius: '10px', p: 2, m: 2, justifyContent: 'center', gap: 1, maxWidth: '35%' }}>
+            <Grid item xs={12} sm={8} md={6} lg={4} sx={{ display: 'flex', flexDirection: 'column', border: '1px solid #b9e1aa', borderRadius: '10px', p: 2, m: 2, justifyContent: 'center', gap: 1 }}>
                 <Grid item xs={12} sx={{ display: 'flex', gap: 2 }}>
-                    <Box sx={{ width: 'fix-content' }}>
+                    <Box sx={{ width: 'fit-content' }}>
                         <Button variant='contained' color='success' sx={{ borderRadius: '8px', py: 1.8 }} onClick={() => navigate('/followers')}>
                             <ArrowBackIcon sx={{ fontSize: '1rem' }} />
                         </Button>
@@ -78,7 +81,7 @@ const Profile: React.FC = () => {
                         <Grid item xs={12}>
                             <Typography fontSize='18px' fontWeight={600} sx={{ textAlign: 'center' }}>Profile</Typography>
                         </Grid>
-                        <Box sx={{ width: 'fix-content', display: 'flex' }}>
+                        <Box sx={{ width: 'fit-content', display: 'flex' }}>
                             {
                                 profileData?.like ? <IconButton onClick={handleLike}> <FavoriteIcon color='error' />  </IconButton> : <IconButton onClick={handleLike}><FavoriteBorderOutlinedIcon />  </IconButton>
                             }
@@ -87,18 +90,11 @@ const Profile: React.FC = () => {
                             </IconButton>
                         </Box>
                     </Grid>
-
                 </Grid>
                 <Grid item xs={12}>
                     <Divider />
                 </Grid>
-                <Grid item xs={12} sx={{
-                    display: "flex",
-                    flexDirection: 'column',
-                    alignItems: "center",
-                    p: 2,
-                    gap: 0.6
-                }}>
+                <Grid item xs={12} sx={{ display: "flex", flexDirection: 'column', alignItems: "center", p: 2, gap: 0.6 }}>
                     <Box
                         sx={{
                             alignItems: "center",
@@ -154,8 +150,7 @@ const Profile: React.FC = () => {
                             }}
                         />
                         <TextsmsOutlinedIcon color='secondary' sx={{ fontSize: '1.3rem' }} />
-                        <Typography sx={{ fontSize: '12px', color: '#626262' }}>Meassge</Typography>
-
+                        <Typography sx={{ fontSize: '12px', color: '#626262' }}>Message</Typography>
                     </Button>
                     <Button variant='contained' sx={{
                         borderRadius: '20px', minWidth: '86px', maxHeight: '34px', fontSize: '12px', backgroundColor: profileData?.follow ? '#EEEEEE' : '#52c41a', color: profileData?.follow ? 'black' : 'white', '&:hover': {
@@ -164,17 +159,17 @@ const Profile: React.FC = () => {
                         }
                     }} onClick={handleFollow} >{profileData?.follow ? 'Following' : 'Follow'}</Button>
                 </Grid>
-                <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
+                <Grid item xs={12} sx={{ display: "flex", justifyContent: "center", flexWrap: 'wrap' }}>
                     {socialData && socialData.map((elem: socialDataType, index: number) => {
                         return (
                             <Grid
                                 item
                                 sx={{
-                                    width: "90px",
+                                    width: { xs: "70px", sm: "90px" },
                                     height: "80px",
                                     border: "1px solid #EEEEEE",
                                     borderRadius: "10px",
-                                    m: 2,
+                                    m: 1,
                                     p: 2,
                                 }}
                                 key={index}
@@ -199,14 +194,13 @@ const Profile: React.FC = () => {
                 <Grid item xs={12}>
                     <Divider />
                 </Grid>
-                {/* display profile image by sliding feature */}
-                <Grid item xs={12} sm={12} sx={{ display: 'flex', gap: 2, overflowX: 'auto', overflowY: 'hidden', minHeight:'192px', p:1 }}>
+                <Grid item xs={12} sx={{ display: 'flex', gap: 2, overflowX: 'auto', overflowY: 'hidden', minHeight: '192px', p: 1 }}>
                     {imgData.map((elem: string, index: number) => (
-                            <img src={elem} key={index} alt='img' style={{ width: '166px', height: '166px' }} />
+                        <img src={elem} key={index} alt='img' style={{ width: '166px', height: '166px' }} />
                     ))}
                 </Grid>
             </Grid>
-        </Grid >
+        </Grid>
     )
 }
 

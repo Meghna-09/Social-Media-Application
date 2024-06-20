@@ -9,7 +9,6 @@ import TextsmsOutlinedIcon from '@mui/icons-material/TextsmsOutlined';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { followersType } from '../utils/types/FollowersType';
-import { profile } from 'console';
 import { setFollowersData } from '../redux/slices/dataSlice';
 interface socialDataType {
     count: string | undefined;
@@ -59,7 +58,7 @@ const Profile: React.FC = () => {
         let index = followersData.findIndex((elem: followersType) => elem.id === id);
         console.log(index)
         let temp = JSON.parse(JSON.stringify(followersData));
-        temp[index]['follow'] = temp[index]['follow'] ? false : true
+        temp[index]['follow'] = !temp[index]['follow']
         console.log(temp[index])
         dispatch(setFollowersData(temp));
     }
@@ -133,6 +132,7 @@ const Profile: React.FC = () => {
                 </Grid>
                 <Grid item xs={12} sx={{ display: "flex", justifyContent: 'center', gap: 0.8, alignItems: 'center' }}>
                     <Button
+                        onClick={() => navigate(`/chat?id=${params.get('id')}`)}
                         sx={{
                             display: "flex",
                             justifyContent: 'center',
@@ -158,11 +158,11 @@ const Profile: React.FC = () => {
 
                     </Button>
                     <Button variant='contained' sx={{
-                        borderRadius: '20px', minWidth: '86px', maxHeight: '34px', fontSize: '12px', backgroundColor: followersData.follow ? '#EEEEEE' : '#52c41a', color: followersData.follow ? 'black' : 'white', '&:hover': {
-                            backgroundColor: followersData.follow ? '#C8C6C6' : '#4dae1d',
-                            color: followersData.follow ? 'black' : 'white',
+                        borderRadius: '20px', minWidth: '86px', maxHeight: '34px', fontSize: '12px', backgroundColor: profileData?.follow ? '#EEEEEE' : '#52c41a', color: profileData?.follow ? 'black' : 'white', '&:hover': {
+                            backgroundColor: profileData?.follow ? '#C8C6C6' : '#4dae1d',
+                            color: profileData?.follow ? 'black' : 'white',
                         }
-                    }} onClick={handleFollow} >{followersData.follow ? 'Following' : 'Follow'}</Button>
+                    }} onClick={handleFollow} >{profileData?.follow ? 'Following' : 'Follow'}</Button>
                 </Grid>
                 <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
                     {socialData && socialData.map((elem: socialDataType, index: number) => {

@@ -5,7 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { NotificationType } from "../utils/types/NotificaitonType";
 import DoneIcon from '@mui/icons-material/Done';
 import { setNotificationData } from "../redux/slices/dataSlice";
+import { useNavigate } from "react-router-dom";
 const Notifications: React.FC = () => {
+    const navigate = useNavigate()
     const reduxData = useSelector((state: any) => state.data);
     const { notificationData } = reduxData;
     const dispatch = useDispatch();
@@ -69,6 +71,7 @@ const Notifications: React.FC = () => {
                 >
                     <Grid item xs={12} sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                         <Box
+                            onClick={() => navigate('/menus')}
                             sx={{
                                 display: "flex",
                                 justifyContent: "center",

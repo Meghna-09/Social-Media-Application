@@ -1,4 +1,4 @@
-import {Grid, Typography, Button, InputLabel, TextField, Divider } from '@mui/material'
+import { Grid, Typography, Button, InputLabel, TextField, Divider } from '@mui/material'
 import { useNavigate } from "react-router-dom";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import React, { useState } from 'react';
@@ -16,7 +16,7 @@ const SignIn: React.FC = () => {
         setData((prev) => ({ ...prev, [name]: value }));
     }
     const handleSignIn = () => {
-        if (data?.email === ''){
+        if (data?.email === '') {
             setValidation((prev) => ({ ...prev, ["email"]: 'Email is required' }));
         }
         if (data?.password === '') {
@@ -44,7 +44,7 @@ const SignIn: React.FC = () => {
                 </Grid>
                 <Grid item xs={12}>
                     <InputLabel sx={{ color: data.password ? '#4DD969' : '' }}>Password</InputLabel>
-                    <TextField name='password' value={data.password} onChange={handleChange} helperText={validation.password} fullWidth required error={validation.password ? true : false} />
+                    <TextField type='password' name='password' value={data.password} onChange={handleChange} helperText={validation.password} fullWidth required error={validation.password ? true : false} />
                 </Grid>
                 <Grid item xs={12}>
                     <Typography sx={{ color: '#4DD969', textDecoration: 'underline', cursor: 'pointer' }}>Forgot your password?</Typography>

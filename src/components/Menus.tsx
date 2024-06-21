@@ -1,13 +1,20 @@
-import { Box, Grid, Avatar, Typography, Divider, Button } from "@mui/material";
+import { Box, Grid, Avatar, Typography, Divider, Button, useMediaQuery } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import React from "react";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+
 const Menus: React.FC = () => {
     const navigate = useNavigate();
+    const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down("sm"));
+
     return (
         <Grid container justifyContent={"center"} spacing={2}>
             <Grid
                 item
+                xs={12}
+                sm={10}
+                md={8}
+                lg={6}
                 sx={{
                     display: "flex",
                     flexDirection: "column",
@@ -23,7 +30,7 @@ const Menus: React.FC = () => {
                 <Grid
                     item
                     xs={12}
-                    sx={{ display: "flex", gap: 2, alignItems: "center" }}
+                    sx={{ display: "flex", gap: 2, alignItems: "center", flexDirection: isMobile ? "column" : "row" }}
                 >
                     <Box
                         sx={{
@@ -49,155 +56,153 @@ const Menus: React.FC = () => {
                             @morsalin.nur
                         </Typography>
                     </Grid>
-                    <Grid item xs={12} sx={{ display: "flex", justifyContent: "end" }}>
-                        <Box
-                            sx={{
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
-                                border: "2px solid #EEEEEE",
-                                borderRadius: "50%",
-                                p: 0.5,
-                                width: "fit-content",
-                                cursor: "pointer",
-                                "&:hover": { backgroundColor: "#f2f0ef" },
-                            }}
-                        >
-                            <ChevronRightIcon sx={{ color: "#919191" }} />
-                        </Box>
-                    </Grid>
+                    {!isMobile && (
+                        <Grid item xs={12} sx={{ display: "flex", justifyContent: "end" }}>
+                            <Box
+                                sx={{
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                    border: "2px solid #EEEEEE",
+                                    borderRadius: "50%",
+                                    p: 0.5,
+                                    width: "fit-content",
+                                    cursor: "pointer",
+                                    "&:hover": { backgroundColor: "#f2f0ef" },
+                                }}
+                            >
+                                <ChevronRightIcon sx={{ color: "#919191" }} />
+                            </Box>
+                        </Grid>
+                    )}
                 </Grid>
                 <Grid item xs={12} sx={{ pb: 2 }}>
                     <Divider />
                 </Grid>
-                <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
-                    {socialData.map((elem, index) => {
-                        return (
-                            <Grid
-                                item
-                                sx={{
-                                    width: "90px",
-                                    height: "80px",
-                                    border: "1px solid #EEEEEE",
-                                    borderRadius: "10px",
-                                    m: 2,
-                                    p: 2,
-                                    cursor: elem.path ? 'pointer' : ''
-                                }}
-                                key={index}
-                                onClick={() => {
-                                    if (elem.path) navigate(elem.path);
-                                }}
-                            >
-                                <Typography
-                                    fontSize={"25px"}
-                                    fontWeight={400}
-                                    sx={{ color: "#1A1B23", textAlign: "center" }}
-                                >
-                                    {elem.count}
-                                </Typography>
-                                <Typography
-                                    fontSize={"12px"}
-                                    sx={{ color: "#919191", textAlign: "center" }}
-                                >
-                                    {elem.name}
-                                </Typography>
-                            </Grid>
-                        );
-                    })}
+                <Grid item xs={12} sx={{ display: "flex", justifyContent: "center", flexWrap: isMobile ? "wrap" : "nowrap" }}>
+                    {socialData.map((elem, index) => (
+                        <Grid
+                            item
+                            xs={4}
+                            sm={3}
+                            key={index}
+                            sx={{
+                                width: "90px",
+                                height: "80px",
+                                border: "1px solid #EEEEEE",
+                                borderRadius: "10px",
+                                m: 1,
+                                p: 2,
+                                cursor: elem.path ? "pointer" : "",
+                                textAlign: "center",
+                            }}
+                            onClick={() => {
+                                if (elem.path) navigate(elem.path);
+                            }}
+                        >
+                            <Typography fontSize={"25px"} fontWeight={400} sx={{ color: "#1A1B23" }}>
+                                {elem.count}
+                            </Typography>
+                            <Typography fontSize={"12px"} sx={{ color: "#919191" }}>
+                                {elem.name}
+                            </Typography>
+                        </Grid>
+                    ))}
                 </Grid>
                 <Grid
                     item
                     xs={12}
                     sx={{ display: "flex", flexDirection: "column", gap: 2, p: 1 }}
                 >
-                    {menuData.map((elem, index) => {
-                        return (
-                            <>
-                                <Grid
-                                    key={index}
-                                    item
-                                    xs={12}
-                                    sx={{
-                                        display: "flex",
-                                        gap: 2,
-                                        justifyContent: "space-between",
-                                        cursor: 'pointer'
-                                    }}
-                                    onClick={() => {
-                                        if (elem.path)
-                                            navigate(elem.path)
-                                    }}
-                                >
-                                    <Grid item>
-                                        <Typography sx={{ fontSize: "15px", fontWeight: 600 }}>
-                                            {elem.title}
-                                        </Typography>
-                                        <Typography
-                                            sx={{
-                                                fontSize: "12px",
-                                                fontWeight: 400,
-                                                color: "#919191",
-                                            }}
-                                        >
-                                            {elem.desc}
-                                        </Typography>
-                                    </Grid>
-                                    <Grid item sx={{ display: "flex", gap: 2 }}>
-                                        {elem.count && (
-                                            <Grid item sx={{ alignContent: "center" }}>
-                                                <Avatar
-                                                    sx={{
-                                                        bgcolor: "#28CD56",
-                                                        width: "24px",
-                                                        height: "24px",
-                                                        fontSize: "0.8rem",
-                                                    }}
-                                                >
-                                                    {elem.count}
-                                                </Avatar>
-                                            </Grid>
-                                        )}
-                                        <Grid item sx={{ display: "flex", justifyContent: "end" }}>
-                                            <Box
+                    {menuData.map((elem, index) => (
+                        <React.Fragment key={index}>
+                            <Grid
+                                item
+                                xs={12}
+                                sx={{
+                                    display: "flex",
+                                    gap: 2,
+                                    justifyContent: "space-between",
+                                    cursor: "pointer",
+                                    flexDirection: "row",
+                                }}
+                                onClick={() => {
+                                    if (elem.path) navigate(elem.path);
+                                }}
+                            >
+                                <Grid item>
+                                    <Typography sx={{ fontSize: "15px", fontWeight: 600 }}>
+                                        {elem.title}
+                                    </Typography>
+                                    <Typography
+                                        sx={{
+                                            fontSize: "12px",
+                                            fontWeight: 400,
+                                            color: "#919191",
+                                        }}
+                                    >
+                                        {elem.desc}
+                                    </Typography>
+                                </Grid>
+                                <Grid item sx={{ display: "flex", gap: 2 }}>
+                                    {elem.count && (
+                                        <Grid item sx={{ alignContent: "center" }}>
+                                            <Avatar
                                                 sx={{
-                                                    display: "flex",
-                                                    justifyContent: "center",
-                                                    alignItems: "center",
-                                                    border: "2px solid #EEEEEE",
-                                                    borderRadius: "50%",
-                                                    p: 0.5,
-                                                    width: "fit-content",
-                                                    cursor: "pointer",
-                                                    "&:hover": { backgroundColor: "#f2f0ef" },
+                                                    bgcolor: "#28CD56",
+                                                    width: "24px",
+                                                    height: "24px",
+                                                    fontSize: "0.8rem",
                                                 }}
                                             >
-                                                <ChevronRightIcon sx={{ color: "#919191" }} />
-                                            </Box>
+                                                {elem.count}
+                                            </Avatar>
                                         </Grid>
+                                    )}
+                                    <Grid item sx={{ display: "flex", justifyContent: "end" }}>
+                                        <Box
+                                            sx={{
+                                                display: "flex",
+                                                justifyContent: "center",
+                                                alignItems: "center",
+                                                border: "2px solid #EEEEEE",
+                                                borderRadius: "50%",
+                                                p: 0.5,
+                                                width: "fit-content",
+                                                cursor: "pointer",
+                                                "&:hover": { backgroundColor: "#f2f0ef" },
+                                            }}
+                                        >
+                                            <ChevronRightIcon sx={{ color: "#919191" }} />
+                                        </Box>
                                     </Grid>
                                 </Grid>
-                                {index === menuData.length - 2 && (
-                                    <Grid item>
-                                        <Divider />
-                                    </Grid>
-                                )}
-                            </>
-                        );
-                    })}
+                            </Grid>
+                            {index === menuData.length - 2 && (
+                                <Grid item>
+                                    <Divider />
+                                </Grid>
+                            )}
+                        </React.Fragment>
+                    ))}
                 </Grid>
                 <Grid item xs={12}>
                     <Button
                         variant="contained"
                         fullWidth
-                        sx={{ p: 1, backgroundColor: "#C9FFD5", color: "#28CD56", '&:hover': { backgroundColor: "#A2CAAB" } }}
-                        onClick={() => navigate('/sign-in')}
+                        sx={{
+                            p: 1,
+                            backgroundColor: "#C9FFD5",
+                            color: "#28CD56",
+                            "&:hover": { backgroundColor: "#A2CAAB" },
+                        }}
+                        onClick={() => navigate("/sign-in")}
                     >
                         Log Out
                     </Button>
                 </Grid>
             </Grid>
-        </Grid >
+        </Grid>
     );
 };
 
@@ -224,7 +229,7 @@ const menuData = [
         title: "Notification",
         count: "35",
         desc: "See your recent activity",
-        path: '/notifications'
+        path: "/notifications",
     },
     {
         title: "Friends",
